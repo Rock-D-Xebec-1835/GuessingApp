@@ -1,12 +1,13 @@
 import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 /**
  * MAIN CLASS
- * Use Case 4: Error Handling & Validation
+ * Use Case 5: Game Result Storage
  * Responsibilities:
- * 1. Initialize game
- * 2. Accept user guesses
- * 3. Validate input using ValidationService
-   4. Handle game flow without crashing on invalid input
+ * 1. Persisting the final game result after the game ends
+ * 2. Result are stored in a file so that game history is not lost after ends.
  *
  * @author Developer
  * @version 4.0
@@ -23,6 +24,9 @@ public class GuessingApp{
         Scanner scanner = new Scanner(System.in);
         int attempts = 0;
 		int hints = 1;
+		boolean win = false;
+		System.out.println("Enter the player name: ");
+		String player = scanner.nextLine();
 
         /*
          * Game loop runs until the player
@@ -40,9 +44,11 @@ public class GuessingApp{
 			hints++;
 			
 			if("CORRECT!".equals(result)){
+				win = true;
 				break;
 			}
-		
+			
 		}
+		StorageService.saveResult(player, attempts, win);
     }
 }
