@@ -1,19 +1,19 @@
 import java.util.Scanner;
 /**
  * MAIN CLASS
- *
- * Coordinates the game flow:
+ * Use Case 4: Error Handling & Validation
+ * Responsibilities:
  * 1. Initialize game
  * 2. Accept user guesses
- * 3. Validate guesses
- * 4. Stop when game ends
+ * 3. Validate input using ValidationService
+   4. Handle game flow without crashing on invalid input
  *
  * @author Developer
- * @version 3.0
+ * @version 4.0
  */
 public class GuessingApp{
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws InvalidInputException{
 
         System.out.println("Welcome to the Guessing App");
 
@@ -30,7 +30,7 @@ public class GuessingApp{
          */
         while(attempts<config.getMaxAttempts()){ 
 			System.out.print("Guess the number: ");
-			int guess =scanner.nextInt();
+			int guess = ValidationService.validateInput(scanner.nextLine());
 			attempts++;
 			
 			String result= GuessValidator.validateGuess(guess,config.getTargetNumber());
